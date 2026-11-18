@@ -1,0 +1,88 @@
+/* 界面只用四档字号（12 / 14 / 18 / 28），标题画面的大标题另算；底色是中性的黑白灰，颜色只留给内容（血量、属性色）。 */
+:root { --ink: #f5f5f5; --panel: rgba(16, 16, 20, 0.68); --line: rgba(255, 255, 255, 0.26); --s1: 12px; --s2: 14px; --s3: 18px; --s4: 28px; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #101014; font-family: 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', sans-serif; font-size: var(--s2); color: var(--ink); user-select: none; }
+#app, #app canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+#ui { position: fixed; inset: 0; pointer-events: none; }
+kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border-radius: 4px; background: #f5f5f5; color: #101014; font: 700 var(--s1)/18px Consolas, monospace; text-align: center; text-shadow: none; }
+
+#boot { position: fixed; inset: 0; display: grid; place-content: center; text-align: center; background: #101014; z-index: 50; }
+.boot-title { font-size: 56px; letter-spacing: 12px; font-weight: 700; }
+.boot-sub { margin-top: 14px; opacity: 0.75; }
+
+/* 叠在 3D 画面上的字需要一点投影才看得清 */
+#hud { position: absolute; inset: 0; z-index: 1; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); }
+.tl { position: absolute; left: 18px; top: 16px; width: 176px; text-align: center; }
+#mini { width: 176px; height: 176px; border-radius: 50%; }
+.clock { margin-top: 6px; font-size: var(--s1); } .clock b { margin-right: 8px; font-weight: 600; }
+.quest { position: absolute; left: 18px; top: 228px; width: 250px; padding: 10px 12px; border-radius: 8px; background: var(--panel); }
+#quest-text { line-height: 1.5; } #quest-dist, #quest-side { margin-top: 4px; font-size: var(--s1); opacity: 0.75; }
+
+.party { position: absolute; right: 16px; top: 50%; transform: translateY(-58%); display: flex; flex-direction: column; gap: 5px; }
+.pm { display: flex; align-items: center; gap: 7px; padding: 3px 10px 3px 4px; border-radius: 26px; background: var(--panel); border: 2px solid transparent; opacity: 0.8; }
+.pm.on { border-color: var(--c); opacity: 1; transform: translateX(-12px); }
+.pm.dead { filter: grayscale(1); opacity: 0.45; }
+.av { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex: none; } .av img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pi { width: 92px; } .pi span { font-size: var(--s1); white-space: nowrap; }
+.ph, .pe { height: 4px; margin-top: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.22); overflow: hidden; }
+.ph i { display: block; height: 100%; background: #7fdc84; } .pe i { display: block; height: 100%; background: var(--c); }
+
+.bottom { position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); width: 380px; text-align: center; }
+.who { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+#who-el { padding: 0 7px; border-radius: 9px; color: #101014; font-size: var(--s1); font-weight: 700; text-shadow: none; }
+.lv { margin-left: auto; font-size: var(--s1); } .exp { width: 70px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.25); overflow: hidden; } .exp i { display: block; height: 100%; background: #f5f5f5; }
+.hpbar { position: relative; height: 16px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
+.hpbar i { display: block; height: 100%; background: #6fcf78; }
+.hpbar span { position: absolute; inset: 0; font: 600 var(--s1)/14px Consolas, monospace; }
+.stbar { height: 6px; margin: 6px auto 0; border-radius: 3px; background: var(--panel); overflow: hidden; }
+.stbar i { display: block; height: 100%; background: #f2c94c; } .stbar i.low { background: #f2684c; }
+
+.skills { position: absolute; right: 26px; bottom: 30px; display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; justify-content: flex-end; width: 330px; }
+.sk { position: relative; width: 74px; height: 74px; border-radius: 50%; background: var(--panel); border: 2px solid var(--line); overflow: hidden; display: grid; place-items: center; text-align: center; }
+#sk-q { width: 92px; height: 92px; }
+.sk kbd { position: absolute; top: 7px; left: 50%; transform: translateX(-50%); z-index: 2; }
+.sk .nm { position: relative; z-index: 2; margin-top: 16px; padding: 0 6px; font-size: var(--s1); line-height: 1.25; }
+.sk .cd { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); }
+.sk em { position: absolute; z-index: 3; bottom: 6px; font: 700 var(--s1) Consolas, monospace; font-style: normal; }
+.sk .fill { position: absolute; left: 0; right: 0; bottom: 0; background: var(--c); opacity: 0.55; }
+.sk.ready { border-color: var(--c); }
+.bag { flex-basis: 100%; display: flex; justify-content: flex-end; gap: 14px; font-size: var(--s1); }
+
+#prompt { position: absolute; left: 50%; top: 62%; transform: translateX(-50%); display: none; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 8px; background: var(--panel); }
+#banner, #regionb { position: absolute; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.4s; white-space: nowrap; font-size: var(--s4); }
+#banner { top: 20%; font-weight: 700; letter-spacing: 4px; } #regionb { top: 11%; letter-spacing: 12px; font-weight: 300; }
+#banner.on, #regionb.on { opacity: 1; }
+#toasts { position: absolute; left: 18px; bottom: 70px; display: flex; flex-direction: column; gap: 6px; }
+.toast { padding: 6px 12px; border-radius: 8px; background: var(--panel); font-size: var(--s1); }
+#boss { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); width: 46%; max-width: 620px; display: none; text-align: center; }
+.bn { letter-spacing: 2px; margin-bottom: 5px; } .bb { height: 12px; border-radius: 6px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; } .bb i { display: block; height: 100%; background: #e5534b; }
+#lock { position: absolute; left: 0; top: 0; width: 34px; height: 34px; display: none; border: 2px solid #fff; border-radius: 4px; }
+#floats, #ebars { position: absolute; inset: 0; overflow: hidden; }
+.fl { position: absolute; left: 0; top: 0; display: none; font: 800 var(--s3)/1 'Segoe UI', 'Microsoft YaHei', sans-serif; white-space: nowrap; -webkit-text-stroke: 3px rgba(0, 0, 0, 0.85); paint-order: stroke fill; text-shadow: none; will-change: transform; }
+.fl.crit { font-size: var(--s4); } .fl.tag { font-size: var(--s2); } .fl.big { font-size: var(--s3); }
+.eb { position: absolute; left: 0; top: 0; display: none; width: 78px; height: 7px; border-radius: 4px; background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(255, 255, 255, 0.5); }
+.eb i { display: block; height: 100%; border-radius: 3px; background: #e5534b; } .eb.tg { border-color: #fff; border-width: 2px; }
+.eb b { position: absolute; left: -22px; top: -6px; width: 18px; height: 18px; border-radius: 50%; color: #101014; font: 700 var(--s1)/18px 'Microsoft YaHei'; text-align: center; text-shadow: none; }
+/* 血量过低时四周泛红：这是状态提示，不是装饰 */
+#vignette { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s; background: radial-gradient(transparent 55%, rgba(200, 20, 20, 0.55)); }
+#fade { position: absolute; inset: 0; background: #000; opacity: 0; }
+#keys { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); font-size: var(--s1); opacity: 0.7; white-space: nowrap; }
+
+#menu { position: absolute; inset: 0; z-index: 5; display: none; place-items: center; background: rgba(0, 0, 0, 0.62); pointer-events: auto; overflow: auto; }
+#menu.on { display: grid; } #menu.start { background: rgba(0, 0, 0, 0.35); }
+.start { text-align: center; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); } .start h1 { margin: 0; font-size: 56px; letter-spacing: 18px; font-weight: 700; } .start .sub { letter-spacing: 4px; margin: 12px 0 40px; } .start .tip { margin-top: 20px; font-size: var(--s1); opacity: 0.8; }
+.panel { width: min(560px, 92vw); max-height: 92vh; overflow: auto; padding: 22px 24px; border-radius: 10px; background: #1b1b20; }
+.panel h2 { margin: 0 0 14px; font-size: var(--s3); } .panel h2 small { margin-left: 10px; font-size: var(--s1); font-weight: 400; opacity: 0.7; } .panel h3 { margin: 20px 0 8px; font-size: var(--s2); }
+button { font: inherit; color: var(--ink); background: rgba(255, 255, 255, 0.1); border: 1px solid transparent; border-radius: 6px; padding: 7px 14px; cursor: pointer; } button:hover { background: rgba(255, 255, 255, 0.2); }
+/* 整个界面只有这一个实心按钮 */
+button.big { display: block; width: 100%; padding: 11px; font-size: var(--s3); font-weight: 700; background: #f5f5f5; color: #101014; text-shadow: none; } button.big:hover { background: #fff; } .start button.big { width: 240px; margin: 0 auto; }
+button.warn { margin-top: 18px; font-size: var(--s1); color: #f2a59f; } button.sel { background: #f5f5f5; color: #101014; }
+.row { display: flex; align-items: center; gap: 12px; margin-top: 14px; } .row label { width: 96px; opacity: 0.85; } .row input { flex: 1; } .seg { display: flex; gap: 6px; flex: 1; } .seg button { flex: 1; padding: 6px 4px; font-size: var(--s1); }
+.keys { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 16px; font-size: var(--s1); } .keys div { display: flex; gap: 8px; align-items: baseline; } .keys kbd { flex: none; }
+.panel.map { width: auto; } #bigmap { display: block; width: min(640px, 76vh); height: min(640px, 76vh); border-radius: 4px; cursor: pointer; }
+.panel.chars { width: min(1180px, 96vw); } .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.card { padding: 10px 12px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); border: 2px solid transparent; cursor: pointer; font-size: var(--s1); line-height: 1.6; }
+.card:hover { background: rgba(255, 255, 255, 0.11); } .card.sel { border-color: var(--c); } .card.dead { filter: grayscale(1); opacity: 0.5; } .card p { margin: 5px 0 0; } .card u { text-decoration: none; color: var(--c); font-weight: 700; } .card .st { opacity: 0.7; }
+.ch { display: flex; align-items: center; gap: 9px; } .ch .av { width: 52px; height: 52px; } .ch b { display: block; font-size: var(--s2); } .ch span { opacity: 0.7; } .ch i { margin-left: auto; width: 28px; height: 28px; border-radius: 50%; background: var(--c); color: #101014; font: 700 var(--s2)/28px 'Microsoft YaHei'; text-align: center; font-style: normal; }
+.note { margin: 12px 0 0; font-size: var(--s1); opacity: 0.8; }
+@media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } #keys { display: none; } .quest { width: 200px; } }

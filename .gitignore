@@ -1,0 +1,29 @@
+# 依赖
+node_modules/
+
+# 构建产物（npm run build 生成）
+dist/
+
+# Playwright 测试输出（npm test 生成，体积很大）
+test-results/
+playwright-report/
+tests/screenshots/
+
+# 日志和缓存
+*.log
+npm-debug.log*
+.vite/
+*.tsbuildinfo
+__pycache__/
+
+# 本地环境变量
+.env
+.env.*
+
+# 编辑器和系统文件
+.vscode/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db
+desktop.ini
