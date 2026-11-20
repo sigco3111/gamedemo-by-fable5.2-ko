@@ -41,7 +41,7 @@ test('场景：八间小屋和 AI 摆设', async ({ page }) => {
   });
   await page.goto('/?nolock&manual');
   await page.waitForFunction(() => (window as any).game, null, { timeout: 60_000 });
-  await page.getByRole('button', { name: '开始游戏' }).click();
+  await page.getByRole('button', { name: '시작하기' }).click();
 
   await test.step('八间小屋都建在陆地上，门口能站人', async () => {
     const list = await page.evaluate(() => {
@@ -123,19 +123,19 @@ test('场景：八间小屋和 AI 摆设', async ({ page }) => {
       g.sky.hour = 10;
       g.player.teleport(h.door.x, h.door.z); g.cam.snap(); g.step(20);
     });
-    await expect(page.locator('#prompt')).toContainText('拜访 Anthropic 的书屋');
+    await expect(page.locator('#prompt')).toContainText('Anthropic의 책방 방문');
     const dust0 = await page.evaluate(() => (window as any).game.party.items.dust as number);
     await page.keyboard.down('f'); await step(page, 1); await page.keyboard.up('f'); await step(page, 5);
-    await expect(page.locator('#banner')).toContainText('已拜访 Anthropic · 1/8');
+    await expect(page.locator('#banner')).toContainText('Anthropic 방문 완료 · 1/8');
     expect(await page.evaluate(() => (window as any).game.world.houseCount)).toBe(1);
     expect(await page.evaluate(() => (window as any).game.party.items.dust as number)).toBe(dust0 + 150);
-    await expect(page.locator('#quest-side')).toContainText('拜访 AI 小屋 1/8');
+    await expect(page.locator('#quest-side')).toContainText('AI 오두막 방문 1/8');
     await page.waitForTimeout(250);
     await page.screenshot({ path: `${DIR}/visit.png` });
 
-    await expect(page.locator('#prompt')).toContainText('敲敲 Anthropic 书屋的门');
+    await expect(page.locator('#prompt')).toContainText('Anthropic 책방 문 두드리기');
     await page.keyboard.down('f'); await step(page, 1); await page.keyboard.up('f'); await step(page, 5);
-    await expect(page.locator('#toasts')).toContainText('便签');
+    await expect(page.locator('#toasts')).toContainText('쪽지');
     expect(await page.evaluate(() => (window as any).game.world.houseCount), '敲门不应再算一次拜访').toBe(1);
 
     const before = await page.evaluate(() => {

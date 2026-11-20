@@ -11,9 +11,9 @@ export interface QConf {
 }
 
 export const QUALITY: Record<QLevel, QConf> = {
-  low: { label: '流畅（核显）', pixelRatio: 0.8, shadow: 1024, grassNear: 14000, grassFar: 10000, bloom: false, msaa: 0 },
-  mid: { label: '均衡', pixelRatio: 1.25, shadow: 2048, grassNear: 32000, grassFar: 24000, bloom: true, msaa: 4 },
-  high: { label: '精致（独显）', pixelRatio: 2, shadow: 4096, grassNear: 64000, grassFar: 48000, bloom: true, msaa: 4 },
+  low: { label: '원활 (내장 그래픽)', pixelRatio: 0.8, shadow: 1024, grassNear: 14000, grassFar: 10000, bloom: false, msaa: 0 },
+  mid: { label: '균형', pixelRatio: 1.25, shadow: 2048, grassNear: 32000, grassFar: 24000, bloom: true, msaa: 4 },
+  high: { label: '정교 (외장 그래픽)', pixelRatio: 2, shadow: 4096, grassNear: 64000, grassFar: 48000, bloom: true, msaa: 4 },
 };
 
 const KEY = 'xingjin.quality';

@@ -29,7 +29,7 @@ test('敌人特写和头像', async ({ page }) => {
   await page.addInitScript(() => { localStorage.removeItem('xingjin.save'); localStorage.setItem('xingjin.quality', 'high'); });
   await page.goto('/?nolock&manual');
   await page.waitForFunction(() => (window as any).game, null, { timeout: 60_000 });
-  await page.getByRole('button', { name: '开始游戏' }).click();
+  await page.getByRole('button', { name: '시작하기' }).click();
 
   await test.step('头像是设定图里裁出来的图片', async () => {
     const imgs = page.locator('#party .av img');
@@ -51,7 +51,7 @@ test('敌人特写和头像', async ({ page }) => {
 
   await test.step('三种敌人的名字', async () => {
     const names = await page.evaluate(() => [...new Set((window as any).game.enemies.list.map((e: any) => e.def.name as string))].sort());
-    expect(names).toEqual(['乱码兵', '大文档巨像 · 遗忘之门的看守', '电子病毒'].sort());
+    expect(names).toEqual(['글리치 병사', '거대 문서 골렘 · 망각의 문의 수호자', '전자 바이러스'].sort());
   });
 
   await test.step('拍特写', async () => {

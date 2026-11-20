@@ -9,7 +9,7 @@ import * as L from '../char/logos';
 type V3 = [number, number, number];
 type Draw = (g: CanvasRenderingContext2D) => void;
 type C = THREE.ColorRepresentation;
-const FONT = '"Microsoft YaHei", "PingFang SC", sans-serif';
+const FONT = '"Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", "Microsoft YaHei", sans-serif';
 
 /** 圆形徽章贴图：一圈边、一块底，中间画标志 */
 function plaqueTex(draw: Draw, bg: string, rim: string) {
@@ -296,7 +296,7 @@ function shrine(k: Kit) {
   for (const x of [-0.42, 0.42]) k.box(0.05, 2.1, 0.24, white, [x, y0 + 1.15, 3.2]);
   for (const x of [-2.7, 2.7]) k.window(0.8, 1.9, [x, y0 + 1.75, 3.22], 0, black, blue);
   for (const s of [-1, 1]) for (const z of [-1.5, 1.5]) k.window(0.8, 1.9, [s * 4.02, y0 + 1.75, z], (s * Math.PI) / 2, black, blue);
-  k.sign('智谱 Z.ai', null, 2.6, [0, y0 + 2.78, 3.32], 0, '#15151b', '#ffffff');
+  k.sign('즈푸 Z.ai', null, 2.6, [0, y0 + 2.78, 3.32], 0, '#15151b', '#ffffff');
   // 门前的门
   for (const s of [-1, 1]) k.cyl(0.17, 0.2, 3.6, black, [s * 1.9, 1.8, 6.4], 10);
   k.box(5.0, 0.24, 0.34, black, [0, 3.55, 6.4]);
@@ -343,7 +343,7 @@ function observatory(k: Kit) {
   k.box(4, 2.8, 4, navy, [-R - 1.6, y0 + 1.4, 0.4]);
   k.group([-R - 1.6, 0, 0.4], 0, () => k.gable(4, 4, 1.7, 0.4, '#3a3f8a', navy, y0 + 2.8));
   k.window(1.0, 1.1, [-R - 1.6, y0 + 1.7, 2.42], 0, silver, '#dfe9ff');
-  k.sign('月之暗面', (g) => L.kBadge(g, true), 2.5, [-R - 1.6, y0 + 3.05, 2.5], 0, '#1b2052', '#e6e9ff');
+  k.sign('Moonshot AI', (g) => L.kBadge(g, true), 2.5, [-R - 1.6, y0 + 3.05, 2.5], 0, '#1b2052', '#e6e9ff');
   for (const s of [-1, 1]) k.lantern([s * 1.4, y0, R + 1.2], '#dfe9ff');
   k.steps(1.7, R + 0.7);
   k.garden(R, R + 0.7, ['#bfe0ff', '#ffe9a0', '#ffffff']);
@@ -373,7 +373,7 @@ function pavilion(k: Kit) {
   for (const x of [-2.5, 2.5]) k.window(1.0, 1.5, [x, y0 + 1.7, W / 2 + 0.02], 0, dark, '#ffe6b0');
   for (const s of [-1, 1]) for (const z of [-1.7, 1.7]) k.window(1.0, 1.5, [s * (W / 2 + 0.02), y0 + 1.7, z], (s * Math.PI) / 2, dark, '#ffe6b0');
   k.medallion(L.qwenBadge, 0.72, [0, y0 + H + 2.3, 2.08], 0, '#5a5ae8', gold);
-  k.sign('阿里云 · 通义', L.qwenBadge, 3.1, [0, y0 + 2.86, W / 2 + 0.6], 0, '#3a3390', '#f3e3b0');
+  k.sign('알리바바 클라우드 · 통이', L.qwenBadge, 3.1, [0, y0 + 2.86, W / 2 + 0.6], 0, '#3a3390', '#f3e3b0');
   // 檐角的灯笼
   for (const s of [-1, 1]) { k.box(0.03, 0.5, 0.03, gold, [s * 3.2, y0 + H - 0.5, 4.6]); k.add(new THREE.SphereGeometry(0.22, 10, 8), '#d9a6ff', [s * 3.2, y0 + H - 0.9, 4.6], null, [1, 1.25, 1], true); }
   k.box(2.4, 0.3, 0.6, '#a59bbc', [0, 0.4, 5.25]);
@@ -459,14 +459,14 @@ function gothic(k: Kit) {
 }
 
 const STYLE: Record<string, { build: (k: Kit) => void; color: string; home: string }> = {
-  claude: { build: cottage, color: '#ff8a3c', home: '书屋' },
-  gpt: { build: domeHouse, color: '#e9e4fb', home: '圆顶屋' },
-  deepseek: { build: lakeHouse, color: '#58b0ff', home: '湖畔灯塔屋' },
-  glm: { build: shrine, color: '#cfd4e6', home: '方屋' },
-  kimi: { build: observatory, color: '#bfe0ff', home: '天文台' },
-  qwen: { build: pavilion, color: '#9a8cff', home: '楼阁' },
-  gemini: { build: studio, color: '#d59bff', home: '工作室' },
-  grok: { build: gothic, color: '#ffd23e', home: '尖塔屋' },
+  claude: { build: cottage, color: '#ff8a3c', home: '책방' },
+  gpt: { build: domeHouse, color: '#e9e4fb', home: '돔 하우스' },
+  deepseek: { build: lakeHouse, color: '#58b0ff', home: '호숫가 등대 집' },
+  glm: { build: shrine, color: '#cfd4e6', home: '네모난 집' },
+  kimi: { build: observatory, color: '#bfe0ff', home: '천문대' },
+  qwen: { build: pavilion, color: '#9a8cff', home: '누각' },
+  gemini: { build: studio, color: '#d59bff', home: '작업실' },
+  grok: { build: gothic, color: '#ffd23e', home: '첨탑 집' },
 };
 
 export interface HouseInfo { id: string; company: string; home: string; color: string; pos: THREE.Vector3; door: THREE.Vector3; chimney: THREE.Vector3 }

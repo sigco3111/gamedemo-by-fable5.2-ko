@@ -1,13 +1,13 @@
 /* 界面只用四档字号（12 / 14 / 18 / 28），标题画面的大标题另算；底色是中性的黑白灰，颜色只留给内容（血量、属性色）。 */
 :root { --ink: #f5f5f5; --panel: rgba(16, 16, 20, 0.68); --line: rgba(255, 255, 255, 0.26); --s1: 12px; --s2: 14px; --s3: 18px; --s4: 28px; }
 * { box-sizing: border-box; }
-html, body { margin: 0; height: 100%; overflow: hidden; background: #101014; font-family: 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', sans-serif; font-size: var(--s2); color: var(--ink); user-select: none; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #101014; font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Segoe UI', sans-serif; font-size: var(--s2); color: var(--ink); user-select: none; }
 #app, #app canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
 #ui { position: fixed; inset: 0; pointer-events: none; }
 kbd { display: inline-block; min-width: 20px; padding: 1px 6px; border-radius: 4px; background: #f5f5f5; color: #101014; font: 700 var(--s1)/18px Consolas, monospace; text-align: center; text-shadow: none; }
 
 #boot { position: fixed; inset: 0; display: grid; place-content: center; text-align: center; background: #101014; z-index: 50; }
-.boot-title { font-size: 56px; letter-spacing: 12px; font-weight: 700; }
+.boot-title { font-size: 56px; letter-spacing: 4px; font-weight: 700; }
 .boot-sub { margin-top: 14px; opacity: 0.75; }
 
 /* 叠在 3D 画面上的字需要一点投影才看得清 */

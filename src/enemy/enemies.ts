@@ -8,9 +8,9 @@ import { angleDiff, damp, dampAngle, rand } from '../core/math';
 
 export interface EnemyDef { kind: 'grunt' | 'wisp' | 'elite'; name: string; hp: number; atk: number; defn: number; speed: number; radius: number; height: number; exp: number; poise: number; aggro: number }
 export const ENEMY: Record<EnemyDef['kind'], EnemyDef> = {
-  grunt: { kind: 'grunt', name: '乱码兵', hp: 520, atk: 64, defn: 40, speed: 3.7, radius: 0.5, height: 1.85, exp: 45, poise: 42, aggro: 15 },
-  wisp: { kind: 'wisp', name: '电子病毒', hp: 300, atk: 56, defn: 20, speed: 2.7, radius: 0.5, height: 1.2, exp: 35, poise: 20, aggro: 20 },
-  elite: { kind: 'elite', name: '大文档巨像 · 遗忘之门的看守', hp: 4200, atk: 118, defn: 70, speed: 3.2, radius: 1.15, height: 3.4, exp: 450, poise: 170, aggro: 27 },
+  grunt: { kind: 'grunt', name: '글리치 병사', hp: 520, atk: 64, defn: 40, speed: 3.7, radius: 0.5, height: 1.85, exp: 45, poise: 42, aggro: 15 },
+  wisp: { kind: 'wisp', name: '전자 바이러스', hp: 300, atk: 56, defn: 20, speed: 2.7, radius: 0.5, height: 1.2, exp: 35, poise: 20, aggro: 20 },
+  elite: { kind: 'elite', name: '거대 문서 골렘 · 망각의 문의 수호자', hp: 4200, atk: 118, defn: 70, speed: 3.2, radius: 1.15, height: 3.4, exp: 450, poise: 170, aggro: 27 },
 };
 type State = 'idle' | 'chase' | 'windup' | 'strike' | 'recover' | 'stagger' | 'return';
 interface Atk { clip: Clip; wind: number; hold: number; rec: number; uWind: number; uHit: number }
@@ -89,7 +89,7 @@ export class Enemy {
       this.poise = this.def.poise;
       this.state = 'stagger';
       this.staggerT = heavy ? 2.6 : 0.75;
-      if (heavy) { this.vulnT = 2.6; this.g.hud.float(this.center, '破防', '#ffd24a', true); this.g.sfx.boom(); }
+      if (heavy) { this.vulnT = 2.6; this.g.hud.float(this.center, '방어 붕괴', '#ffd24a', true); this.g.sfx.boom(); }
     }
   }
   setMark(elem: Elem) { if (this.reactCd <= 0) this.mark = { elem, t: 8 }; }

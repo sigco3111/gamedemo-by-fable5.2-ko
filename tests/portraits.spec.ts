@@ -22,7 +22,7 @@ test('角色特写', async ({ page }) => {
   await page.addInitScript(() => { localStorage.removeItem('xingjin.save'); localStorage.setItem('xingjin.quality', 'high'); });
   await page.goto('/?nolock&manual');
   await page.waitForFunction(() => (window as any).game, null, { timeout: 60_000 });
-  await page.getByRole('button', { name: '开始游戏' }).click();
+  await page.getByRole('button', { name: '시작하기' }).click();
   await page.evaluate(() => {
     const g = (window as any).game;
     document.getElementById('hud')!.style.display = 'none';

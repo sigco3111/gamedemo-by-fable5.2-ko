@@ -12,6 +12,6 @@ setTimeout(() => {
   } catch (e) {
     console.error(e);
     const t = document.getElementById('boot-text');
-    if (t) t.textContent = '启动失败：' + (e as Error).message;
+    if (t) t.textContent = '시작 실패: ' + (e as Error).message;
   }
 }, 50);

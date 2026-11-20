@@ -15,14 +15,14 @@ interface Stage { text: string; target: () => THREE.Vector3 | null; done: () => 
 const _v = new THREE.Vector3(), _w = new THREE.Vector3(), _m = new THREE.Matrix4(), _q = new THREE.Quaternion(), _s = new THREE.Vector3(), _e = new THREE.Euler();
 /** 敲门时屋里的动静 */
 const KNOCK: Record<string, string> = {
-  claude: '门缝里递出一张便签：「让我想仔细一点，再回答你。」',
-  gpt: '屋里传来一阵打字声，然后停住了：「正在生成……」',
-  deepseek: '灯塔的灯闪了一下：「服务器繁忙，请稍后再试。」',
-  glm: '门口的狐狸石像眨了眨眼，又睡着了。',
-  kimi: '圆顶上的望远镜转过来看了你一眼：「长文本？放着我来。」',
-  qwen: '檐下的灯笼晃了晃：「通情，达义。」',
-  gemini: '窗台上的四色积木自己换了个顺序。',
-  grok: '塔顶传来一声笑：「答案是 42。」',
+  claude: '문틈으로 쪽지가 나왔다: 「좀 더 신중하게 생각한 뒤 답할게.」',
+  gpt: '방 안에서 타이핑 소리가 나다가 멈췄다: 「생성하는 중……」',
+  deepseek: '등대 불빛이 한 번 깜빡였다: 「서버가 혼잡합니다. 잠시 후 다시 시도해 주세요.」',
+  glm: '문 앞의 여우 석상이 눈을 깜빡이더니 다시 잠들었다.',
+  kimi: '돔 위의 망원경이 돌아와 너를 바라봤다: 「긴 텍스트? 나한테 맡겨.」',
+  qwen: '처마 아래 등불이 흔들렸다: 「정에 통하고, 의에 닿는다.」',
+  gemini: '창턱의 네 가지 색 블록이 스스로 순서를 바꿨다.',
+  grok: '탑 꼭대기에서 웃음소리가 들렸다: 「정답은 42야.」',
 };
 /** 算力晶片：一块带针脚的芯片 */
 function chipGeo() {
@@ -63,21 +63,21 @@ export class World {
     const T = g.terrain, at = (x: number, z: number, dy = 0) => new THREE.Vector3(x, T.heightAt(x, z) + dy, z);
     const ent = st.entranceAngle, R = POI.ruins, S = POI.start;
     // 传送锚点
-    this.waypoint('w0', '提示词原野', at(S.x + 6, S.z - 6));
-    this.waypoint('w1', '算力高地', at(4, -128));
-    this.waypoint('w2', '遗忘之门', at(R.x + Math.cos(ent) * 40, R.z + Math.sin(ent) * 40));
-    this.waypoint('w3', '数据湖西岸', at(34, 36));
-    this.waypoint('w4', '随机森林', at(-128, -8));
+    this.waypoint('w0', '프롬프트 들판', at(S.x + 6, S.z - 6));
+    this.waypoint('w1', '연산력 고지', at(4, -128));
+    this.waypoint('w2', '망각의 문', at(R.x + Math.cos(ent) * 40, R.z + Math.sin(ent) * 40));
+    this.waypoint('w3', '데이터 호수 서안', at(34, 36));
+    this.waypoint('w4', '랜덤 포레스트', at(-128, -8));
     for (const h of g.houses.list) this.house(h);
     this.scatterTokens();
     // 敌人营地
     const E = g.enemies;
-    E.addCamp({ id: 0, name: '原野营地', x: POI.campA.x, z: POI.campA.z, grunts: 3, wisps: 0, level: 1 });
-    E.addCamp({ id: 1, name: '林间营地', x: POI.campB.x, z: POI.campB.z, grunts: 3, wisps: 2, level: 3 });
-    E.addCamp({ id: 2, name: '南丘营地', x: POI.campC.x, z: POI.campC.z, grunts: 2, wisps: 2, level: 4 });
-    E.addCamp({ id: 3, name: '崖顶哨所', x: POI.tower.x - 20, z: POI.tower.z + 6, grunts: 2, wisps: 3, level: 6 });
-    E.addCamp({ id: 4, name: '遗忘之门', x: R.x, z: R.z, grunts: 0, wisps: 0, level: 8, elite: true });
-    E.addCamp({ id: 5, name: '湖畔', x: 62, z: 74, grunts: 0, wisps: 2, level: 2 });
+    E.addCamp({ id: 0, name: '들판 야영지', x: POI.campA.x, z: POI.campA.z, grunts: 3, wisps: 0, level: 1 });
+    E.addCamp({ id: 1, name: '숲속 야영지', x: POI.campB.x, z: POI.campB.z, grunts: 3, wisps: 2, level: 3 });
+    E.addCamp({ id: 2, name: '남쪽 언덕 야영지', x: POI.campC.x, z: POI.campC.z, grunts: 2, wisps: 2, level: 4 });
+    E.addCamp({ id: 3, name: '절벽 꼭대기 초소', x: POI.tower.x - 20, z: POI.tower.z + 6, grunts: 2, wisps: 3, level: 6 });
+    E.addCamp({ id: 4, name: '망각의 문', x: R.x, z: R.z, grunts: 0, wisps: 0, level: 8, elite: true });
+    E.addCamp({ id: 5, name: '호숫가', x: 62, z: 74, grunts: 0, wisps: 2, level: 2 });
     // 宝箱
     this.chest('c0', at(S.x - 7, S.z - 9), false);
     this.chest('c1', at(POI.campA.x + 4, POI.campA.z + 5), false, 0);
@@ -108,14 +108,14 @@ export class World {
     const way = (id: string) => this.items.find((i) => i.id === id)!;
     const onTop = () => { const p = g.player.pos; return p.y > 44 && plateauMask(p.x, p.z).m2 > 0.6 && g.player.state === 'ground'; };
     this.stages = [
-      { text: '激活前方的传送锚点（走近后按 F）', target: () => way('w0').pos, done: () => way('w0').done, exp: 40 },
-      { text: '沿土路向西，清剿原野上的乱码兵营地', target: () => at(POI.campA.x, POI.campA.z), done: () => E.alive(0) === 0, exp: 80 },
-      { text: '打开营地里的宝箱', target: () => way('c1').pos, done: () => way('c1').done, exp: 40 },
-      { text: '登上北面的算力高地：贴着崖壁按住 W 攀爬，或跳进崖脚的上升气流再按空格滑翔', target: () => way('w1').pos, done: onTop, exp: 120 },
-      { text: '从高地滑翔到数据湖的湖心岛（跳起后在空中再按一次空格）', target: () => at(POI.islet.x, POI.islet.z), done: () => Math.hypot(g.player.pos.x - POI.islet.x, g.player.pos.z - POI.islet.z) < 13 && g.player.state === 'ground', exp: 150 },
-      { text: '前往西南的遗忘之门，击败大文档巨像', target: () => at(R.x, R.z), done: () => this.eliteDead, exp: 300 },
-      { text: '开启遗忘之门中央的华丽宝箱', target: () => way('c7').pos, done: () => way('c7').done, exp: 100 },
-      { text: '主线完成！自由探索：拜访八家 AI 小屋、收集算力晶片、试试八位角色', target: () => null, done: () => false, exp: 0 },
+      { text: '앞에 있는 순간이동 거점 활성화하기 (가까이 가서 F)', target: () => way('w0').pos, done: () => way('w0').done, exp: 40 },
+      { text: '흙길을 따라 서쪽으로, 들판의 글리치 병사 야영지 소탕', target: () => at(POI.campA.x, POI.campA.z), done: () => E.alive(0) === 0, exp: 80 },
+      { text: '야영지의 보물상자 열기', target: () => way('c1').pos, done: () => way('c1').done, exp: 40 },
+      { text: '북쪽 연산력 고지 오르기: 절벽에 붙어 W를 눌러 등반하거나, 절벽 아래 상승 기류에 뛰어든 뒤 스페이스로 활강', target: () => way('w1').pos, done: onTop, exp: 120 },
+      { text: '고지에서 데이터 호수 중앙의 섬으로 활강 (점프 후 공중에서 스페이스를 한 번 더)', target: () => at(POI.islet.x, POI.islet.z), done: () => Math.hypot(g.player.pos.x - POI.islet.x, g.player.pos.z - POI.islet.z) < 13 && g.player.state === 'ground', exp: 150 },
+      { text: '남서쪽 망각의 문으로 가서 거대 문서 골렘 처치', target: () => at(R.x, R.z), done: () => this.eliteDead, exp: 300 },
+      { text: '망각의 문 중앙의 화려한 보물상자 열기', target: () => way('c7').pos, done: () => way('c7').done, exp: 100 },
+      { text: '메인 완료! 자유 탐험: 여덟 AI 오두막 방문, 연산 칩 수집, 여덟 캐릭터 체험', target: () => null, done: () => false, exp: 0 },
     ];
   }
 
@@ -133,14 +133,14 @@ export class World {
     g.col.addCyl(pos.x, pos.z, 0.6, pos.y - 1, pos.y + 1.0);
     const it = this.add({
       id, kind: 'way', pos, r: 2.6, label, done: false, obj: o, data: { gem, ring },
-      prompt: () => (it.done ? '在锚点休整（回复全队）' : '激活传送锚点'),
+      prompt: () => (it.done ? '거점에서 휴식 (파티 전체 회복)' : '순간이동 거점 활성화'),
       use: () => {
         if (!it.done) {
           this.unlock(it);
-          g.hud.banner(`已激活锚点 · ${label}`, '#8fd8ff');
+          g.hud.banner(`거점 활성화 · ${label}`, '#8fd8ff');
           g.sfx.waypoint();
           g.fx.pillar(pos, 1, 14, 1.2, '#8fd8ff');
-        } else { g.sfx.pick(); g.hud.toast('全队已回复'); }
+        } else { g.sfx.pick(); g.hud.toast('파티 전체가 회복되었습니다'); }
         g.party.healAll();
         g.player.stamina = g.player.staminaMax;
         g.fx.burst(_v.copy(pos).setY(pos.y + 2), '#8fd8ff', 20, 3, 0.3, 0.9, { up: 1 });
@@ -154,7 +154,7 @@ export class World {
     const g = this.g, o = new THREE.Group();
     const it = this.add({
       id: 'h-' + h.id, kind: 'house', pos: h.door, r: 3.2, label: h.company, done: false, obj: o, data: { color: h.color, home: h.home, chimney: h.chimney },
-      prompt: () => (it.done ? `敲敲 ${h.company} ${h.home}的门` : `拜访 ${h.company} 的${h.home}`),
+      prompt: () => (it.done ? `${h.company} ${h.home} 문 두드리기` : `${h.company}의 ${h.home} 방문`),
       use: () => {
         // 特效放在门板那一侧，别糊在站在门口的角色和相机上
         const at = _w.copy(h.pos).sub(h.door).setY(0).normalize().multiplyScalar(1.3).add(h.door);
@@ -163,17 +163,17 @@ export class World {
         const n = this.houseCount, own = g.party.cur.def.id === h.id;
         g.party.items.dust += 150; g.party.items.berry += 1;
         g.party.gainExp(70);
-        g.hud.banner(`已拜访 ${h.company} · ${n}/${HOUSES.length}`, h.color);
-        g.hud.toast(`获得 Token ×150、甜果 ×1`);
-        if (own) { g.party.cur.energy = 100; g.hud.toast(`${g.party.cur.def.name} 回到了自己家：元素爆发充满`); }
+        g.hud.banner(`${h.company} 방문 완료 · ${n}/${HOUSES.length}`, h.color);
+        g.hud.toast(`토큰 ×150, 달콤 열매 ×1 획득`);
+        if (own) { g.party.cur.energy = 100; g.hud.toast(`${g.party.cur.def.name}이(가) 자기 집에 돌아왔습니다: 원소 폭발 게이지 충전`); }
         g.sfx.waypoint();
         g.fx.pillar(h.pos, 2.2, 20, 1.4, h.color);
         g.fx.glyphs(_v.copy(at).setY(at.y + 1.2), h.color, 22, 1.8, 0.32, 2.2);
         if (n === HOUSES.length && !this.allVisited) {
           this.allVisited = true;
           g.player.staminaMax += 30; g.party.items.dust += 800;
-          g.hud.banner('八家小屋全部拜访 · 体力上限 +30', '#ffe08a');
-          g.hud.toast('获得 Token ×800');
+          g.hud.banner('여덟 오두막 모두 방문 · 스태미나 상한 +30', '#ffe08a');
+          g.hud.toast('토큰 ×800 획득');
         }
         g.save();
       },
@@ -224,15 +224,15 @@ export class World {
     o.traverse((m) => { (m as THREE.Mesh).castShadow = true; });
     if (id === 'c7') o.visible = false;
     const it = this.add({
-      id, kind: 'chest', pos, r: 2.2, label: ornate ? '华丽宝箱' : '宝箱', done: false, obj: o, data: { lid, guard, ornate },
-      prompt: () => (it.done || !o.visible ? null : guard >= 0 && g.enemies.alive(guard) > 0 ? '周围还有敌人，宝箱打不开' : `开启${ornate ? '华丽' : ''}宝箱`),
+      id, kind: 'chest', pos, r: 2.2, label: ornate ? '화려한 보물상자' : '보물상자', done: false, obj: o, data: { lid, guard, ornate },
+      prompt: () => (it.done || !o.visible ? null : guard >= 0 && g.enemies.alive(guard) > 0 ? '주변에 적이 있어 보물상자를 열 수 없습니다' : `${ornate ? '화려한 ' : ''}보물상자 열기`),
       use: () => {
         if (it.done || (guard >= 0 && g.enemies.alive(guard) > 0)) { g.sfx.deny(); return; }
         it.done = true;
         const dust = ornate ? 300 : 90 + Math.floor(Math.random() * 40), berry = ornate ? 3 : 2;
         g.party.items.dust += dust; g.party.items.berry += berry;
         g.party.gainExp(ornate ? 160 : 45);
-        g.hud.toast(`获得 Token ×${dust}、甜果 ×${berry}`);
+        g.hud.toast(`토큰 ×${dust}, 달콤 열매 ×${berry} 획득`);
         g.sfx.chest();
         g.fx.pillar(pos, 0.7, ornate ? 9 : 5, 0.9, ornate ? '#d8a6ff' : '#ffe08a');
         g.fx.burst(_v.copy(pos).setY(pos.y + 0.8), '#ffe08a', 24, 4, 0.3, 0.9, { up: 4, gravity: 8 });
@@ -251,15 +251,15 @@ export class World {
     o.add(bush, berries);
     o.position.copy(pos);
     const it = this.add({
-      id, kind: 'gather', pos, r: 1.8, label: '甜果丛', done: false, obj: o, data: { berries },
-      prompt: () => (it.done ? null : '采集甜果'),
+      id, kind: 'gather', pos, r: 1.8, label: '달콤 열매 덤불', done: false, obj: o, data: { berries },
+      prompt: () => (it.done ? null : '달콤 열매 채집'),
       use: () => {
         if (it.done) return;
         it.done = true; it.t = 0;
         berries.visible = false;
         const n = 1 + Math.floor(Math.random() * 2);
         g.party.items.berry += n;
-        g.hud.toast(`获得 甜果 ×${n}（按 Z 食用，回复生命）`);
+        g.hud.toast(`달콤 열매 ×${n} 획득 (Z로 먹으면 생명력 회복)`);
         g.sfx.pick();
       },
     });
@@ -280,7 +280,7 @@ export class World {
     const c = this.items.find((i) => i.id === 'c7')!;
     c.obj.visible = true;
     this.g.fx.pillar(c.pos, 1.2, 12, 1.2, '#d8a6ff');
-    this.g.hud.banner('大文档巨像已被击败', '#ffd24a');
+    this.g.hud.banner('거대 문서 골렘을 처치했습니다', '#ffd24a');
   }
   get stage() { return this.stages[Math.min(this.quest, this.stages.length - 1)]; }
   get crystalCount() { return this.crystals.filter((c) => c.got).length; }
@@ -341,12 +341,12 @@ export class World {
     if (s.done() && this.quest < this.stages.length - 1) {
       this.quest++;
       g.party.gainExp(s.exp);
-      g.hud.banner('目标达成', '#ffe08a');
+      g.hud.banner('목표 달성', '#ffe08a');
       g.sfx.pick();
       g.save();
     }
     // 区域名
-    const reg = plateauMask(p.x, p.z).m2 > 0.5 ? '算力高地' : ruinsMask(p.x, p.z) > 0.3 ? '遗忘之门' : Math.hypot(p.x - POI.lake.x, p.z - POI.lake.z) < 72 ? '数据湖' : forestMask(p.x, p.z) > 0.45 ? '随机森林' : '提示词原野';
+    const reg = plateauMask(p.x, p.z).m2 > 0.5 ? '연산력 고지' : ruinsMask(p.x, p.z) > 0.3 ? '망각의 문' : Math.hypot(p.x - POI.lake.x, p.z - POI.lake.z) < 72 ? '데이터 호수' : forestMask(p.x, p.z) > 0.45 ? '랜덤 포레스트' : '프롬프트 들판';
     if (reg !== this.region) { if (this.region) g.hud.region(reg); this.region = reg; }
   }
   private takeToken(i: number) {
@@ -365,8 +365,8 @@ export class World {
     const n = this.crystalCount;
     g.fx.burst(c.obj.position, '#ffe9a0', 24, 4, 0.3, 0.8);
     g.sfx.chest();
-    if (n % 3 === 0) { g.player.staminaMax += 15; g.hud.banner(`算力晶片 ${n}/${this.crystals.length} · 体力上限 +15`, '#ffe9a0'); }
-    else g.hud.toast(`获得算力晶片 ${n}/${this.crystals.length}（每 3 枚提升体力上限）`);
+    if (n % 3 === 0) { g.player.staminaMax += 15; g.hud.banner(`연산 칩 ${n}/${this.crystals.length} · 스태미나 상한 +15`, '#ffe9a0'); }
+    else g.hud.toast(`연산 칩 ${n}/${this.crystals.length} 획득 (3개마다 스태미나 상한 증가)`);
     g.save();
   }
 

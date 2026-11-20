@@ -19,14 +19,14 @@ export interface CharDef {
 }
 
 export const CHARS: Record<CharId, CharDef> = {
-  claude: { id: 'claude', hair: '#ee6f2a', name: 'Claude娘', title: '晨曦书记', elem: 'blaze', hp: 1000, atk: 104, defn: 52, kit: KITS.claude, hold: { armL: [0.5, 0.12], foreL: 1.75 }, holdMask: ['armL', 'foreL'], blurb: '远程 · 用书卷放出日光，擅长大范围轰炸和群体回复。' },
-  gpt: { id: 'gpt', hair: '#f1eefb', name: 'GPT娘', title: '白辉龙裔', elem: 'radiance', hp: 1250, atk: 96, defn: 70, kit: KITS.gpt, wings: true, blurb: '近战 · 龙爪龙尾横扫四方；自带龙翼，滑翔更省体力。' },
-  deepseek: { id: 'deepseek', hair: '#27398f', name: 'DeepSeek娘', title: '深海侍者', elem: 'tide', hp: 1150, atk: 88, defn: 60, kit: KITS.deepseek, blurb: '远程 · 全队的治疗担当，水泡命中后会小范围炸开。' },
-  glm: { id: 'glm', hair: '#1b1b24', name: 'GLM娘', title: '眠狐', elem: 'shade', hp: 950, atk: 108, defn: 48, kit: KITS.glm, blurb: '近战 · 出手最快，能瞬身绕后，并让敌人陷入沉睡。' },
-  kimi: { id: 'kimi', hair: '#e9ebfa', name: 'Kimi娘', title: '月下笛手', elem: 'frost', hp: 980, atk: 100, defn: 50, kit: KITS.kimi, hold: { armR: [0.35, 0.15], foreR: 1.25 }, holdMask: ['armR', 'foreR'], blurb: '远程 · 音符弹道最快；月光领域减速敌人、强化队友。' },
-  qwen: { id: 'qwen', hair: '#7a72e2', name: 'Qwen娘', title: '千里扇', elem: 'gale', hp: 1050, atk: 98, defn: 56, kit: KITS.qwen, hold: { armR: [0.6, 0.1], foreR: 1.6 }, holdMask: ['armR', 'foreR'], blurb: '中距离 · 扇出风刃，擅长把散开的敌人聚到一起。' },
-  gemini: { id: 'gemini', hair: '#5b7af2', name: 'Gemini娘', title: '双子星猫', elem: 'astral', hp: 920, atk: 106, defn: 46, kit: KITS.gemini, blurb: '近战 · 灵活的突进手，星跃冷却极短，流星雨覆盖一片。' },
-  grok: { id: 'grok', hair: '#f2d27c', name: 'Grok娘', title: '雷霆裁决', elem: 'volt', hp: 1300, atk: 112, defn: 66, kit: KITS.grok, hold: { armR: [0.3, 0.3], foreR: 1.5, armL: [0.1, 0.2], foreL: 0.4 }, holdMask: ['armR', 'foreR'], blurb: '近战 · 巨斧出手慢但范围大、伤害高，最擅长打断敌人。' },
+  claude: { id: 'claude', hair: '#ee6f2a', name: '클로드걸', title: '새벽의 서기', elem: 'blaze', hp: 1000, atk: 104, defn: 52, kit: KITS.claude, hold: { armL: [0.5, 0.12], foreL: 1.75 }, holdMask: ['armL', 'foreL'], blurb: '원거리 · 책에서 햇살을 쏟아내고, 넓은 범위 폭격과 파티 회복에 강합니다.' },
+  gpt: { id: 'gpt', hair: '#f1eefb', name: 'GPT걸', title: '하얀 빛의 용족', elem: 'radiance', hp: 1250, atk: 96, defn: 70, kit: KITS.gpt, wings: true, blurb: '근접 · 용의 발톱과 꼬리로 사방을 휩씁니다. 용 날개가 있어 활강 시 스태미나가 덜 듭니다.' },
+  deepseek: { id: 'deepseek', hair: '#27398f', name: '딥시크걸', title: '심해의 메이드', elem: 'tide', hp: 1150, atk: 88, defn: 60, kit: KITS.deepseek, blurb: '원거리 · 파티의 힐러. 물방울이 적중하면 좁은 범위로 터집니다.' },
+  glm: { id: 'glm', hair: '#1b1b24', name: 'GLM걸', title: '잠자는 여우', elem: 'shade', hp: 950, atk: 108, defn: 48, kit: KITS.glm, blurb: '근접 · 공격 속도가 가장 빠르고, 순식간에 뒤를 잡아 적을 잠재웁니다.' },
+  kimi: { id: 'kimi', hair: '#e9ebfa', name: '키미걸', title: '달빛의 피리 연주자', elem: 'frost', hp: 980, atk: 100, defn: 50, kit: KITS.kimi, hold: { armR: [0.35, 0.15], foreR: 1.25 }, holdMask: ['armR', 'foreR'], blurb: '원거리 · 음표의 탄속이 가장 빠릅니다. 달빛 영역은 적을 느리게 하고 아군을 강화합니다.' },
+  qwen: { id: 'qwen', hair: '#7a72e2', name: 'Qwen걸', title: '천리의 부채', elem: 'gale', hp: 1050, atk: 98, defn: 56, kit: KITS.qwen, hold: { armR: [0.6, 0.1], foreR: 1.6 }, holdMask: ['armR', 'foreR'], blurb: '중거리 · 부채로 바람 칼날을 날리고, 흩어진 적을 한곳에 모으는 데 강합니다.' },
+  gemini: { id: 'gemini', hair: '#5b7af2', name: '제미나이걸', title: '쌍둥이별 고양이', elem: 'astral', hp: 920, atk: 106, defn: 46, kit: KITS.gemini, blurb: '근접 · 민첩한 돌격형. 별 도약의 쿨다운이 매우 짧고 유성우가 넓은 지역을 덮습니다.' },
+  grok: { id: 'grok', hair: '#f2d27c', name: '그록걸', title: '천둥의 심판', elem: 'volt', hp: 1300, atk: 112, defn: 66, kit: KITS.grok, hold: { armR: [0.3, 0.3], foreR: 1.5, armL: [0.1, 0.2], foreL: 0.4 }, holdMask: ['armR', 'foreR'], blurb: '근접 · 거대 도끼는 느리지만 범위가 넓고 피해가 크며, 적의 동작을 끊는 데 가장 강합니다.' },
 };
 
 export class Member {
@@ -78,7 +78,7 @@ export class Party {
     if (up) {
       this.recalc();
       for (const m of this.members) if (m.alive) m.hp = Math.min(m.maxHp, m.hp + m.maxHp * 0.3);
-      this.g.hud.banner(`队伍等级提升  Lv.${this.level}`, '#ffe08a');
+      this.g.hud.banner(`파티 레벨 업  Lv.${this.level}`, '#ffe08a');
       this.g.sfx.levelUp();
       this.g.fx.pillar(this.g.player.pos, 1.2, 8, 0.9, '#ffe08a');
     }

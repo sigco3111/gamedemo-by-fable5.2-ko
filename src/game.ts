@@ -126,7 +126,7 @@ export class Game {
     this.slowT = 1.3;
     this.combat.counterT = 4;
     this.party.cur.energy = Math.min(100, this.party.cur.energy + 10);
-    this.hud.banner('极限闪避 · 反击伤害提升', '#bfe9ff');
+    this.hud.banner('완벽 회피 · 반격 피해 증가', '#bfe9ff');
     this.sfx.perfect();
     this.fx.ring(this.player.pos, 0.3, 3.2, 0.45, '#ffffff');
   }
@@ -146,7 +146,7 @@ export class Game {
     this.player.stamina = this.player.staminaMax;
     this.warp(w ? w.pos.x + 1.8 : POI.start.x, w ? w.pos.z + 1.8 : POI.start.z);
     this.hud.fade(1.4);
-    this.hud.toast('全队倒下，已在最近的锚点重整');
+    this.hud.toast('파티가 전멸해 가장 가까운 거점에서 재정비했습니다');
   }
   private eat() {
     const m = this.party.cur;

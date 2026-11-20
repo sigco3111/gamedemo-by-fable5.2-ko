@@ -22,13 +22,13 @@ const HUD_HTML = `
 <div class="skills">
   <div class="sk" id="sk-e"><kbd>E</kbd><span class="nm"></span><i class="cd"></i><em></em></div>
   <div class="sk" id="sk-q"><kbd>Q</kbd><span class="nm"></span><i class="fill"></i></div>
-  <div class="bag"><span>甜果 <b id="berry"></b> <kbd>Z</kbd></span><span>Token <b id="dust"></b></span><span>晶片 <b id="crys"></b></span></div>
+  <div class="bag"><span>달콤 열매 <b id="berry"></b> <kbd>Z</kbd></span><span>토큰 <b id="dust"></b></span><span>연산 칩 <b id="crys"></b></span></div>
 </div>
 <div id="prompt"><kbd>F</kbd><span></span></div>
 <div id="banner"></div><div id="regionb"></div><div id="toasts"></div>
 <div id="boss"><div class="bn"></div><div class="bb"><i></i></div></div>
 <div id="lock"></div><div id="floats"></div><div id="ebars"></div><div id="vignette"></div><div id="fade"></div>
-<div id="keys">WASD 移动 · 空格 跳/滑翔 · Shift 闪避/冲刺 · 左键 攻击(长按重击) · E 技能 · Q 爆发 · 1-8 换人 · Tab 锁定 · M 地图 · C 角色 · Esc 菜单</div>`;
+<div id="keys">WASD 이동 · 스페이스 점프/활강 · Shift 회피/돌진 · 좌클릭 공격(길게 누르면 강공격) · E 스킬 · Q 필살기 · 1-8 캐릭터 교체 · Tab 조준 고정 · M 지도 · C 캐릭터 · Esc 메뉴</div>`;
 
 /** 界面：血条体力、技能、队伍、小地图、任务、伤害数字、菜单 */
 export class Hud {
@@ -141,7 +141,7 @@ export class Hud {
     const bossEl = $('#boss');
     bossEl.style.display = boss ? 'block' : 'none';
     if (boss) {
-      $('.bn', bossEl).textContent = `${boss.def.name}  Lv.${boss.level}` + (boss.mark ? `  〔${ELEM[boss.mark.elem].mark}〕` : '') + (boss.vulnT > 0 ? '  〔破防〕' : '');
+      $('.bn', bossEl).textContent = `${boss.def.name}  Lv.${boss.level}` + (boss.mark ? `  〔${ELEM[boss.mark.elem].mark}〕` : '') + (boss.vulnT > 0 ? '  〔방어 붕괴〕' : '');
       $('.bb i', bossEl).style.width = (boss.hp / boss.maxHp) * 100 + '%';
     }
     // 锁定准星
@@ -181,8 +181,8 @@ export class Hud {
       $('#region').textContent = g.world.region;
       const s = g.world.stage, t = s.target();
       $('#quest-text').textContent = s.text;
-      $('#quest-dist').textContent = t ? `距离 ${Math.round(Math.hypot(t.x - pl.pos.x, t.z - pl.pos.z))} 米 · 小地图上的金色标记` : '';
-      $('#quest-side').textContent = `拜访 AI 小屋 ${g.world.houseCount}/8 · 路上的 Token 币 ${g.world.tokenCount}/${g.world.tokens.length}`;
+      $('#quest-dist').textContent = t ? `거리 ${Math.round(Math.hypot(t.x - pl.pos.x, t.z - pl.pos.z))}m · 미니맵의 금색 표시` : '';
+      $('#quest-side').textContent = `AI 오두막 방문 ${g.world.houseCount}/8 · 길 위의 토큰 ${g.world.tokenCount}/${g.world.tokens.length}`;
       const pr = $('#prompt'), near = g.world.near;
       pr.style.display = near ? 'flex' : 'none';
       if (near) $('span', pr).textContent = near.prompt() ?? '';
@@ -262,7 +262,7 @@ export class Hud {
     const taken = marks.map((m) => [m.x - m.r, m.y - m.r, m.x + m.r, m.y + m.r]);
     for (const m of marks) {
       const house = m.it.kind === 'house', size = house ? 13 : 15;
-      c.font = `600 ${size}px "Microsoft YaHei", sans-serif`;
+      c.font = `600 ${size}px "Malgun Gothic", "Noto Sans KR", sans-serif`;
       const w = c.measureText(m.it.label).width + 4, h = size + 2, dx = m.r + w / 2 + 3, dy = m.r + h / 2 + 2;
       const spots = house ? [[dx, 0], [0, dy], [0, -dy], [-dx, 0]] : [[0, -dy], [0, dy], [-dx, 0], [dx, 0]];
       const box = ([ox, oy]: number[]) => [m.x + ox - w / 2, m.y + oy - h / 2, m.x + ox + w / 2, m.y + oy + h / 2];
@@ -281,32 +281,32 @@ export class Hud {
     this.hud.style.visibility = name === 'start' ? 'hidden' : 'visible';
     if (!name) { M.innerHTML = ''; this.mapCv = null; return; }
     if (name === 'start') {
-      M.innerHTML = `<div class="start"><h1>星烬原野</h1><p class="sub">二次元开放世界 Demo · 八位 AI 娘</p><button data-act="begin" class="big">开始游戏</button>
-        <p class="tip">进入后鼠标会被锁定用来转视角，按 Esc 可以呼出菜单</p></div>`;
+      M.innerHTML = `<div class="start"><h1>별잿빛 들판</h1><p class="sub">애니메이션풍 오픈 월드 Demo · 여덟 명의 AI 소녀</p><button data-act="begin" class="big">시작하기</button>
+        <p class="tip">시작하면 마우스가 시점 회전용으로 잠깁니다. Esc로 메뉴를 열 수 있습니다</p></div>`;
     } else if (name === 'pause') {
       const q = g.quality;
-      M.innerHTML = `<div class="panel"><h2>暂停</h2>
-        <button data-act="resume" class="big">继续游戏</button>
-        <div class="row"><label>画质</label><div class="seg">${(Object.keys(QUALITY) as QLevel[]).map((k) => `<button data-q="${k}" class="${k === q ? 'sel' : ''}">${QUALITY[k].label}</button>`).join('')}</div></div>
-        <div class="row"><label>鼠标灵敏度</label><input type="range" id="sens" min="0.8" max="6" step="0.1" value="${(g.cam.sens * 1000).toFixed(1)}"></div>
-        <div class="row"><label>音量</label><input type="range" id="vol" min="0" max="1" step="0.05" value="${g.sfx.volume}"></div>
-        <h3>操作</h3>
-        <div class="keys">${[['W A S D', '移动'], ['鼠标', '转视角 · 滚轮拉远近'], ['空格', '跳跃 · 空中再按一次滑翔 · 攀爬时向上跃'], ['Shift', '点按闪避（踩准时机触发极限闪避）· 按住冲刺'], ['鼠标左键', '普通攻击 · 长按重击 · 空中下落攻击'], ['E / Q', '元素技能 / 元素爆发'], ['1 – 8', '切换角色'], ['Tab / 中键', '锁定目标'], ['F', '互动（锚点、宝箱、采集、小屋）'], ['Z', '吃甜果回血'], ['X', '攀爬时松手'], ['M / C', '地图 / 角色面板']].map(([a, b]) => `<div><kbd>${a}</kbd><span>${b}</span></div>`).join('')}</div>
-        <button data-act="reset" class="warn">重置存档并重新开始</button></div>`;
+      M.innerHTML = `<div class="panel"><h2>일시정지</h2>
+        <button data-act="resume" class="big">계속하기</button>
+        <div class="row"><label>화질</label><div class="seg">${(Object.keys(QUALITY) as QLevel[]).map((k) => `<button data-q="${k}" class="${k === q ? 'sel' : ''}">${QUALITY[k].label}</button>`).join('')}</div></div>
+        <div class="row"><label>마우스 감도</label><input type="range" id="sens" min="0.8" max="6" step="0.1" value="${(g.cam.sens * 1000).toFixed(1)}"></div>
+        <div class="row"><label>음량</label><input type="range" id="vol" min="0" max="1" step="0.05" value="${g.sfx.volume}"></div>
+        <h3>조작법</h3>
+        <div class="keys">${[['W A S D', '이동'], ['마우스', '시점 회전 · 휠로 거리 조절'], ['스페이스', '점프 · 공중에서 한 번 더 누르면 활강 · 등반 중 위로 도약'], ['Shift', '짧게 누르면 회피(타이밍을 맞추면 완벽 회피) · 길게 누르면 돌진'], ['마우스 좌클릭', '일반 공격 · 길게 누르면 강공격 · 공중 낙하 공격'], ['E / Q', '원소 스킬 / 원소 폭발'], ['1 – 8', '캐릭터 교체'], ['Tab / 휠 버튼', '대상 고정'], ['F', '상호작용(거점, 보물상자, 채집, 오두막)'], ['Z', '달콤 열매를 먹어 생명력 회복'], ['X', '등반 중 손 떼기'], ['M / C', '지도 / 캐릭터 패널']].map(([a, b]) => `<div><kbd>${a}</kbd><span>${b}</span></div>`).join('')}</div>
+        <button data-act="reset" class="warn">저장 데이터를 지우고 처음부터</button></div>`;
     } else if (name === 'map') {
-      M.innerHTML = `<div class="panel map"><h2>地图 <small>点击已激活的锚点（蓝色菱形）传送 · 圆徽是八家 AI 公司，金圈是拜访过的 · 按 M 关闭</small></h2><canvas id="bigmap" width="640" height="640"></canvas></div>`;
+      M.innerHTML = `<div class="panel map"><h2>지도 <small>활성화된 거점(파란 마름모)을 클릭하면 순간이동 · 원형 배지는 여덟 AI 회사, 금색 테두리는 방문한 곳 · M으로 닫기</small></h2><canvas id="bigmap" width="640" height="640"></canvas></div>`;
       this.mapCv = $<HTMLCanvasElement>('#bigmap');
       this.drawMap();
     } else {
-      M.innerHTML = `<div class="panel chars"><h2>队伍 <small>点击卡片换人 · 按 C 关闭</small></h2><div class="grid">${g.party.members.map((m, i) => {
+      M.innerHTML = `<div class="panel chars"><h2>파티 <small>카드를 클릭하면 교체 · C로 닫기</small></h2><div class="grid">${g.party.members.map((m, i) => {
         const e = ELEM[m.def.elem], k = m.def.kit;
         return `<div class="card ${i === g.party.active ? 'sel' : ''} ${m.alive ? '' : 'dead'}" data-char="${i}" style="--c:${m.color}">
           <div class="ch"><div class="av" data-av="${i}"></div><div><b>${m.def.name}</b><span>${m.def.title}</span></div><i>${e.name}</i></div>
-          <p class="st">生命 ${m.maxHp} · 攻击 ${m.atk} · 防御 ${m.defn}</p><p>${m.def.blurb}</p>
-          <p><u>${e.mark}</u> 印记：${e.markDesc}。<u>${e.burst}</u>：${e.burstDesc}。</p>
-          <p><kbd>E</kbd> <b>${k.skill.name}</b>（冷却 ${k.skill.cd} 秒）${k.skill.desc}</p><p><kbd>Q</kbd> <b>${k.burst.name}</b> ${k.burst.desc}</p></div>`;
+          <p class="st">생명력 ${m.maxHp} · 공격력 ${m.atk} · 방어력 ${m.defn}</p><p>${m.def.blurb}</p>
+          <p><u>${e.mark}</u> 인장: ${e.markDesc}.<u>${e.burst}</u>：${e.burstDesc}。</p>
+          <p><kbd>E</kbd> <b>${k.skill.name}</b>(쿨다운 ${k.skill.cd}초)${k.skill.desc}</p><p><kbd>Q</kbd> <b>${k.burst.name}</b> ${k.burst.desc}</p></div>`;
       }).join('')}</div>
-      <p class="note">属性反应：敌人身上带着一种属性的印记时，用<b>另一种</b>属性打它，就会按后手属性触发一次爆发，并消耗掉印记。</p></div>`;
+      <p class="note">속성 반응: 적에게 한 속성의 인장이 남아 있을 때 <b>다른</b> 속성으로 공격하면, 나중에 적용한 속성으로 폭발이 한 번 발동하고 인장은 소모됩니다.</p></div>`;
       M.querySelectorAll<HTMLElement>('[data-av]').forEach((el) => el.appendChild(this.avatar(g.party.members[+el.dataset.av!], 52)));
     }
   }
@@ -316,13 +316,13 @@ export class Hud {
       const cv = t as HTMLCanvasElement, r = cv.getBoundingClientRect(), ev = e as MouseEvent;
       const wx = ((ev.clientX - r.left) / r.width) * WORLD.size - WORLD.half, wz = ((ev.clientY - r.top) / r.height) * WORLD.size - WORLD.half;
       const w = g.world.items.filter((i) => i.kind === 'way' && i.done).sort((a, b) => Math.hypot(a.pos.x - wx, a.pos.z - wz) - Math.hypot(b.pos.x - wx, b.pos.z - wz))[0];
-      if (w && Math.hypot(w.pos.x - wx, w.pos.z - wz) < 26) { g.sfx.waypoint(); g.warp(w.pos.x + 1.8, w.pos.z + 1.8); g.setMenu(null); this.toast(`已传送到 ${w.label}`); } else g.sfx.deny();
+      if (w && Math.hypot(w.pos.x - wx, w.pos.z - wz) < 26) { g.sfx.waypoint(); g.warp(w.pos.x + 1.8, w.pos.z + 1.8); g.setMenu(null); this.toast(`${w.label}(으)로 순간이동했습니다`); } else g.sfx.deny();
       return;
     }
     if (!btn) return;
     g.sfx.ui();
     if (btn.dataset.act === 'begin' || btn.dataset.act === 'resume') g.setMenu(null);
-    else if (btn.dataset.act === 'reset') { if (confirm('确定清除存档、从头开始吗？')) { localStorage.removeItem('xingjin.save'); location.reload(); } }
+    else if (btn.dataset.act === 'reset') { if (confirm('저장 데이터를 지우고 처음부터 시작할까요?')) { localStorage.removeItem('xingjin.save'); location.reload(); } }
     else if (btn.dataset.q) { saveQuality(btn.dataset.q as QLevel); g.save(); location.reload(); }
     else if (btn.dataset.char) { if (g.player.swapTo(+btn.dataset.char, true)) g.setMenu(null); }
   }

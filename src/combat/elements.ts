@@ -11,13 +11,13 @@ export interface ElemInfo {
 }
 
 export const ELEM: Record<Elem, ElemInfo> = {
-  phys: { name: '无', color: '#e8e8e8', mark: '', markDesc: '', burst: '', burstDesc: '' },
-  blaze: { name: '炽', color: '#ff7a2e', mark: '灼烧', markDesc: '持续受到火焰伤害', burst: '爆燃', burstDesc: '在目标处爆炸，波及周围敌人', dot: 0.22 },
-  tide: { name: '潮', color: '#3fa6ff', mark: '浸润', markDesc: '攻击力降低 20%', burst: '涌潮', burstDesc: '击退周围敌人，并为当前角色回复生命', weaken: 0.2 },
-  frost: { name: '霜', color: '#a8e4ff', mark: '迟缓', markDesc: '移动和出手变慢', burst: '凝冻', burstDesc: '把目标冻住一小段时间', slow: 0.4 },
-  volt: { name: '雷', color: '#ffd23e', mark: '感电', markDesc: '持续受到少量雷伤害', burst: '连锁', burstDesc: '闪电在附近敌人之间弹跳', dot: 0.12 },
-  gale: { name: '岚', color: '#7df0c8', mark: '失衡', markDesc: '防御力降低 25%', burst: '卷集', burstDesc: '把周围敌人吸到一起', defDown: 0.25 },
-  astral: { name: '星', color: '#d59bff', mark: '星蚀', markDesc: '受到的伤害提高 10%', burst: '星爆', burstDesc: '对单体造成大量伤害，并回复元素能量', vuln: 0.1 },
-  shade: { name: '影', color: '#7a6cff', mark: '梦魇', markDesc: '受到的伤害提高 15%', burst: '蚀梦', burstDesc: '让目标陷入沉睡，下一击伤害翻倍', vuln: 0.15 },
-  radiance: { name: '光', color: '#fff3b8', mark: '曝辉', markDesc: '防御力降低 15%', burst: '辉耀', burstDesc: '范围伤害，并提高全队攻击力', defDown: 0.15 },
+  phys: { name: '무', color: '#e8e8e8', mark: '', markDesc: '', burst: '', burstDesc: '' },
+  blaze: { name: '화염', color: '#ff7a2e', mark: '화상', markDesc: '지속적으로 화염 피해를 받습니다', burst: '폭연', burstDesc: '대상 위치에서 폭발해 주변 적에게 번집니다', dot: 0.22 },
+  tide: { name: '물결', color: '#3fa6ff', mark: '젖음', markDesc: '공격력 20% 감소', burst: '밀물', burstDesc: '주변 적을 밀쳐내고 현재 캐릭터의 생명력을 회복합니다', weaken: 0.2 },
+  frost: { name: '서리', color: '#a8e4ff', mark: '둔화', markDesc: '이동과 공격이 느려집니다', burst: '빙결', burstDesc: '대상을 잠시 얼려 버립니다', slow: 0.4 },
+  volt: { name: '번개', color: '#ffd23e', mark: '감전', markDesc: '지속적으로 약간의 번개 피해를 받습니다', burst: '연쇄', burstDesc: '번개가 근처 적 사이를 튑니다', dot: 0.12 },
+  gale: { name: '질풍', color: '#7df0c8', mark: '균형 상실', markDesc: '방어력 25% 감소', burst: '소용돌이', burstDesc: '주변 적을 한곳으로 끌어모읍니다', defDown: 0.25 },
+  astral: { name: '별', color: '#d59bff', mark: '별일식', markDesc: '받는 피해 10% 증가', burst: '별폭발', burstDesc: '단일 대상에 큰 피해를 주고 원소 에너지를 회복합니다', vuln: 0.1 },
+  shade: { name: '그림자', color: '#7a6cff', mark: '악몽', markDesc: '받는 피해 15% 증가', burst: '꿈 침식', burstDesc: '대상을 잠재우고 다음 공격의 피해가 두 배가 됩니다', vuln: 0.15 },
+  radiance: { name: '빛', color: '#fff3b8', mark: '노광', markDesc: '방어력 15% 감소', burst: '광휘', burstDesc: '범위 피해를 주고 파티 전체의 공격력을 높입니다', defDown: 0.15 },
 };

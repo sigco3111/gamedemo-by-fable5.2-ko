@@ -26,9 +26,9 @@ export const HOUSES = [
   { id: 'claude', company: 'Anthropic', x: 30, z: 98, yaw: -2.28 },
   { id: 'gpt', company: 'OpenAI', x: -46, z: -128, yaw: 1.57 },
   { id: 'deepseek', company: 'DeepSeek', x: 61, z: 22, yaw: -0.3 },
-  { id: 'glm', company: '智谱 Z.ai', x: -128, z: 20, yaw: 2.29 },
-  { id: 'kimi', company: '月之暗面', x: 100, z: -72, yaw: -0.84 },
-  { id: 'qwen', company: '阿里云 · 通义', x: 62, z: 150, yaw: -2.56 },
+  { id: 'glm', company: '즈푸 Z.ai', x: -128, z: 20, yaw: 2.29 },
+  { id: 'kimi', company: 'Moonshot AI', x: 100, z: -72, yaw: -0.84 },
+  { id: 'qwen', company: '알리바바 클라우드 · 통이', x: 62, z: 150, yaw: -2.56 },
   { id: 'gemini', company: 'Google', x: -22, z: 150, yaw: -3.01 },
   { id: 'grok', company: 'xAI', x: -140, z: 96, yaw: 2.36 },
 ] as const;

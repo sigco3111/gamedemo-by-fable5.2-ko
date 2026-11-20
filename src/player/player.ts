@@ -186,7 +186,7 @@ export class Player {
       this.deadT += dt;
       if (this.deadT > 1.3) {
         const nx = g.party.nextAlive();
-        if (nx >= 0) { this.dead = false; this.swapTo(nx, true); this.iframe = 1; g.hud.toast(`${m.def.name} 倒下了，换 ${g.party.cur.def.name} 上场`); }
+        if (nx >= 0) { this.dead = false; this.swapTo(nx, true); this.iframe = 1; g.hud.toast(`${m.def.name}이(가) 쓰러져 ${g.party.cur.def.name}(으)로 교체합니다`); }
         else if (this.deadT > 2.2) g.wipe();
       }
     } else if (live) {
@@ -358,7 +358,7 @@ export class Player {
         if (this.stamina <= 0) {
           // 体力耗尽：扣血并送回最近站稳过的地方
           this.hurtRaw(0.15);
-          g.hud.toast('体力耗尽，被冲回了岸边');
+          g.hud.toast('스태미나가 떨어져 물가로 밀려났습니다');
           g.hud.fade(0.5);
           this.teleport(this.safe.x, this.safe.z);
           this.stamina = this.staminaMax * 0.5;

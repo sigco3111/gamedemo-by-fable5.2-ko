@@ -5,7 +5,7 @@ import { test, expect, type Page } from '@playwright/test';
  * 页面用 ?manual 打开：游戏不自己跑主循环，由测试调用 game.step(n) 推进 n 帧，所以结果和机器快慢无关。
  * 按键和鼠标是真实事件；瞬移、回满血这些只是为了把角色摆到要测的地方。
  */
-const NAMES = ['Claude娘', 'GPT娘', 'DeepSeek娘', 'GLM娘', 'Kimi娘', 'Qwen娘', 'Gemini娘', 'Grok娘'];
+const NAMES = ['클로드걸', 'GPT걸', '딥시크걸', 'GLM걸', '키미걸', 'Qwen걸', '제미나이걸', '그록걸'];
 const errors: string[] = [];
 
 const step = (page: Page, n = 1) => page.evaluate((k) => (window as any).game.step(k), n);
@@ -62,12 +62,12 @@ test('主要玩法走一遍', async ({ page }) => {
 
   await test.step('启动：出现标题画面', async () => {
     await boot(page);
-    await expect(page.locator('#menu h1')).toHaveText('星烬原野');
+    await expect(page.locator('#menu h1')).toHaveText('별잿빛 들판');
     await shot(page, '01-title');
   });
 
   await test.step('开始游戏：按 W 向前跑', async () => {
-    await page.getByRole('button', { name: '开始游戏' }).click();
+    await page.getByRole('button', { name: '시작하기' }).click();
     await expect(page.locator('#hud')).toBeVisible();
     const a = await info(page);
     await hold(page, ['KeyW'], 90);
@@ -78,10 +78,10 @@ test('主要玩法走一遍', async ({ page }) => {
 
   await test.step('激活传送锚点，任务推进', async () => {
     await place(page, 7.8, 67.5, 0);
-    await expect(page.locator('#prompt')).toContainText('激活传送锚点');
+    await expect(page.locator('#prompt')).toContainText('순간이동 거점 활성화');
     await tap(page, 'KeyF', 5);
     expect((await info(page)).quest).toBe(1);
-    await expect(page.locator('#quest-text')).toContainText('营地');
+    await expect(page.locator('#quest-text')).toContainText('야영지');
     await shot(page, '03-waypoint');
   });
 
@@ -184,12 +184,12 @@ test('主要玩法走一遍', async ({ page }) => {
     const before = await info(page);
     await page.reload();
     await page.waitForFunction(() => (window as any).game, null, { timeout: 60_000 });
-    await page.getByRole('button', { name: '开始游戏' }).click();
+    await page.getByRole('button', { name: '시작하기' }).click();
     await step(page, 5);
     const after = await info(page);
     expect(after.quest).toBe(before.quest);
     expect(after.level).toBe(before.level);
-    await expect(page.locator('#who')).toHaveText('GPT娘');
+    await expect(page.locator('#who')).toHaveText('GPT걸');
     expect(Math.hypot(after.x - 8, after.z - 60), '应回到存档时的位置附近').toBeLessThan(3);
     await shot(page, '11-loaded');
   });

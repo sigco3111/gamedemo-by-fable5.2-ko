@@ -97,8 +97,8 @@ function pageLines(g: G2) {
 function coverLabel(g: G2) {
   g.fillStyle = '#fbfaf5'; g.fillRect(-0.5, -0.3, 1, 0.6);
   g.strokeStyle = '#8a6a20'; g.lineWidth = 0.03; g.strokeRect(-0.47, -0.27, 0.94, 0.54);
-  text(g, '最终版_v37', 30, '#3a3020', -14);
-  text(g, '9999 页', 34, '#c8323c', 26);
+  text(g, '최종본_v37', 30, '#3a3020', -14);
+  text(g, '9999 페이지', 34, '#c8323c', 26);
 }
 /** 红色角标 */
 function badge(g: G2) {

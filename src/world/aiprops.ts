@@ -9,7 +9,7 @@ import type { Fx } from '../render/fx';
 
 type V3 = [number, number, number];
 type C = THREE.ColorRepresentation;
-const FONT = '"Microsoft YaHei", "PingFang SC", sans-serif';
+const FONT = '"Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", "Microsoft YaHei", sans-serif';
 const MONO = 'Consolas, "Courier New", monospace';
 /** 所有会动的发光材质共用的时间和昼夜 */
 const U = { uTime: { value: 0 }, uNight: { value: 0 } };
@@ -196,12 +196,12 @@ export class AiProps {
     this.buildTree(-22, 84);
     this.buildTraces();
     this.buildLamps();
-    this.signpost(-3.5, 69, [['Anthropic', 16, 14], ['算力高地', 4, -42], ['乱码营地', -20, -20], ['遗忘之门', -28, 32]]);
-    this.signpost(1, 33.5, [['数据湖', 26, 3], ['算力高地', -6, -50]]);
-    this.signpost(27.5, 29.5, [['DeepSeek', 31, -11], ['月之暗面', 14, -43]]);
-    this.signpost(-71, 33.5, [['xAI', -34, 32], ['智谱 Z.ai', -38, -24], ['随机森林', -38, -30]]);
-    this.signpost(-25, 106, [['Google', 4, 24], ['遗忘之门', -36, 32]]);
-    this.signpost(33, 103, [['阿里云 · 通义', 18, 26]]);
+    this.signpost(-3.5, 69, [['Anthropic', 16, 14], ['연산력 고지', 4, -42], ['글리치 야영지', -20, -20], ['망각의 문', -28, 32]]);
+    this.signpost(1, 33.5, [['데이터 호수', 26, 3], ['연산력 고지', -6, -50]]);
+    this.signpost(27.5, 29.5, [['DeepSeek', 31, -11], ['Moonshot AI', 14, -43]]);
+    this.signpost(-71, 33.5, [['xAI', -34, 32], ['즈푸 Z.ai', -38, -24], ['랜덤 포레스트', -38, -30]]);
+    this.signpost(-25, 106, [['Google', 4, 24], ['망각의 문', -36, 32]]);
+    this.signpost(33, 103, [['알리바바 클라우드 · 통이', 18, 26]]);
     const body = new THREE.Mesh(merge(this.solid), toon({ vertexColors: true, grad: 'soft', side: THREE.DoubleSide }));
     body.castShadow = body.receiveShadow = true;
     scene.add(body);
@@ -232,7 +232,7 @@ export class AiProps {
         g.fillStyle = '#2b2e3a'; g.fillRect(0, 0, 768, 192);
         g.fillStyle = '#d5dae6'; g.textBaseline = 'middle';
         g.font = `700 104px ${MONO}`; g.fillText(`GPU-${i}`, 24, 78);
-        g.font = `600 40px ${MONO}`; g.fillStyle = '#8f97aa'; g.fillText('VRAM 24 GB · 450 W · 算力充足', 28, 158);
+        g.font = `600 40px ${MONO}`; g.fillStyle = '#8f97aa'; g.fillText('VRAM 24 GB · 450 W · 연산력 충분', 28, 158);
       });
       const plate = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 1.6), toon({ map: tex, grad: 'soft' }));
       plate.position.set(-1.6, GC + 0.6, -0.74);
